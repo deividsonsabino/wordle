@@ -24,7 +24,14 @@ public class Board : MonoBehaviour
 
     private void Update()
     {
-        if (columnIndex >= rows[rowIndex].tiles.Length)
+        Row currentRow = rows[rowIndex];
+
+        if (Input.GetKeyDown(KeyCode.Backspace))
+        {
+            columnIndex = Mathf.Max(columnIndex - 1, 0);
+            currentRow.tiles[columnIndex].SetLetter('\0');
+        }
+        else if (columnIndex >= currentRow.tiles.Length)
         {
 
         }
@@ -34,7 +41,7 @@ public class Board : MonoBehaviour
             {
                 if (Input.GetKeyDown(SUPPORTED_KEYS[i]))
                 {
-                    rows[rowIndex].tiles[columnIndex].SetLetter((char)SUPPORTED_KEYS[i]);
+                    currentRow.tiles[columnIndex].SetLetter((char)SUPPORTED_KEYS[i]);
                     columnIndex++;
                     break;
                 }
