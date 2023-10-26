@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class Tile : MonoBehaviour
 {
     [System.Serializable]
-    public struct State
+    public class State
     {
         public Color fillColor;
         public Color outlineColor;
