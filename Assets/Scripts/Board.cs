@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Board : MonoBehaviour
 {
@@ -32,7 +33,8 @@ public class Board : MonoBehaviour
 
     [Header("UI")]
     public TextMeshProUGUI invalidWordText;
-
+    public Button newWordButton;
+    public Button tryAgainButton;
 
     private void Awake()
     {
@@ -42,7 +44,21 @@ public class Board : MonoBehaviour
     private void Start()
     {
         LoadData();
+        NewGame();
+    }
+
+    public void NewGame()
+    {
+        ClearBoard();
         SetRandomWord();
+
+        enabled = true;
+    }
+
+    public void TryAgain()
+    {
+        ClearBoard();
+        enabled = true;
     }
 
     private void LoadData()
@@ -122,11 +138,11 @@ public class Board : MonoBehaviour
             }
         }
 
-        for (int i = 0;i < row.tiles.Length;i++)
+        for (int i = 0; i < row.tiles.Length; i++)
         {
             Tile tile = row.tiles[i];
 
-            if(tile.state != correctState && tile.state != incorrectState)
+            if (tile.state != correctState && tile.state != incorrectState)
             {
                 if (remaining.Contains(tile.letter))
                 {
@@ -143,18 +159,40 @@ public class Board : MonoBehaviour
             }
         }
 
+        if (HasWon(row))
+        {
+            enabled = false;
+        }
+
         rowIndex++;
         columnIndex = 0;
 
-        if (rowIndex >= rows.Length) 
-        { 
+        if (rowIndex >= rows.Length)
+        {
             enabled = false;
         }
     }
 
+    private void ClearBoard()
+    {
+        for (int row = 0; row < rows.Length; row++)
+        {
+            for (int column = 0; column < rows[row].tiles.Length; column++)
+            {
+                rows[row].tiles[column].SetLetter('\0');
+                rows[row].tiles[column].SetState(emptyState);
+
+            }
+        }
+
+        rowIndex = 0;
+        columnIndex = 0;
+    }
+
     private bool IsValidWord(string word)
     {
-        for (int i = 0; i < validWords.Length;i++) {
+        for (int i = 0; i < validWords.Length; i++)
+        {
             if (validWords[i] == word)
             {
                 return true;
@@ -162,5 +200,31 @@ public class Board : MonoBehaviour
         }
 
         return false;
+    }
+
+    private bool HasWon(Row row)
+    {
+        for (int i = 0; i < row.tiles.Length; i++)
+        {
+            if (row.tiles[i].state != correctState)
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    private void OnEnable()
+    {
+
+        tryAgainButton.gameObject.SetActive(false);
+        newWordButton.gameObject.SetActive(false);
+    }
+
+    private void OnDisable()
+    {
+        tryAgainButton.gameObject.SetActive(true);
+        newWordButton.gameObject.SetActive(true);
     }
 }

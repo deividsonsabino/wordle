@@ -8,4 +8,7 @@ EditorBuildSettings:
   - enabled: 0
     path: 
     guid: 00000000000000000000000000000000
+  - enabled: 1
+    path: Assets/Scenes/Wordle.unity
+    guid: adf0aa7a3c5ebd64382bf3fa4c30bb25
   m_configObjects: {}
