@@ -1,0 +1,23 @@
+- name: Stark Accessibility Checker
+  # You may pin to the exact commit or the version.
+  # uses: stark-contrast/accessibility-check-action@b64bceb4d5d4939f3ea174cf276464ba7325a01c
+  uses: stark-contrast/accessibility-check-action@0.3.2-beta.0
+  with:
+    # Set up the current container. Here you can install dependencies related to the container. E.g. install a node version. Use the node version.
+    setup: # optional, default is echo "Nothing to setup"
+    # Install project dependencies. E.g. npm install
+    prebuild: # optional, default is echo "Nothing to prebuild"
+    # Build the project. E.g npm build
+    build: # optional, default is echo "Nothing to build"
+    # Serve the project. E.g npm start
+    serve: # optional, default is echo "Nothing to serve"
+    # Run a cleanup if needed.
+    cleanup: # optional, default is echo "Nothing to cleanup"
+    # A list of URLs to be scanned, with each URL belonging to its own line. This value follows YAML conventions for multiline strings.
+    urls: # default is https://getstark.co
+    # Time in milliseconds to wait before running the scanner. A rough time delay for your server to start
+    wait_time: # optional, default is 5000
+    # Minimum score for the action to pass. A number from 0 to 100
+    min_score: # optional, default is 0
+    # Stark token required to send data back to stark web. The cli doesn't post data if token is not provided
+    token: # optional
