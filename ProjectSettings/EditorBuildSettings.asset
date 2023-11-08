@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Wordle.unity
     guid: adf0aa7a3c5ebd64382bf3fa4c30bb25
+  - enabled: 1
+    path: Assets/Scenes/Start.unity
+    guid: 2bb3775e058b22147abee2117e4ca928
   m_configObjects: {}
