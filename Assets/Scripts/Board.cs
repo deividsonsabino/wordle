@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
@@ -63,11 +64,23 @@ public class Board : MonoBehaviour
 
     private void LoadData()
     {
-        TextAsset textFile = Resources.Load("official_wordle_all") as TextAsset;
-        validWords = textFile.text.Split('\n');
+        string language = "pt-br";
+        if (language == "en-us")
+        {
+            TextAsset textFile = Resources.Load("official_wordle_all") as TextAsset;
+            validWords = textFile.text.Split('\n');
 
-        textFile = Resources.Load("official_wordle_common") as TextAsset;
-        solutions = textFile.text.Split('\n');
+            textFile = Resources.Load("official_wordle_common") as TextAsset;
+            solutions = textFile.text.Split('\n');
+        } 
+        else
+        {
+            TextAsset textFile = Resources.Load("wordle_portuguese") as TextAsset;
+            validWords = textFile.text.Split('\n');
+
+            textFile = Resources.Load("wordle_portuguese") as TextAsset;
+            solutions = textFile.text.Split('\n');
+        }
     }
 
     public void Exit()
@@ -83,7 +96,7 @@ public class Board : MonoBehaviour
 
     private void SetRandomWord()
     {
-        word = solutions[Random.Range(0, solutions.Length)];
+        word = solutions[UnityEngine.Random.Range(0, solutions.Length)];
         word = word.ToLower().Trim();
     }
 
