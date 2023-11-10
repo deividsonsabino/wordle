@@ -659,6 +659,7 @@ GameObject:
   - component: {fileID: 525140308}
   - component: {fileID: 525140309}
   - component: {fileID: 525140310}
+  - component: {fileID: 525140311}
   m_Layer: 5
   m_Name: Board
   m_TagString: Untagged
@@ -748,6 +749,19 @@ MonoBehaviour:
   invalidWordText: {fileID: 205058879}
   newWordButton: {fileID: 1168298921}
   tryAgainButton: {fileID: 123951562}
+--- !u!114 &525140311
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 525140307}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f59747b98c662f4985299a1a2165419, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  language: 
 --- !u!1 &528033816
 GameObject:
   m_ObjectHideFlags: 0

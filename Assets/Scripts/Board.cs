@@ -8,6 +8,8 @@ using UnityEngine.UI;
 
 public class Board : MonoBehaviour
 {
+    private GameManager gameManager;
+
     private static readonly KeyCode[] SUPPORTED_KEYS = new KeyCode[] {
         KeyCode.A, KeyCode.B, KeyCode.C, KeyCode.D, KeyCode.E, KeyCode.F,
         KeyCode.G, KeyCode.H, KeyCode.I, KeyCode.J, KeyCode.K, KeyCode.L,
@@ -44,6 +46,7 @@ public class Board : MonoBehaviour
 
     private void Start()
     {
+        gameManager = GetComponent<GameManager>();
         LoadData();
         NewGame();
     }
@@ -64,21 +67,20 @@ public class Board : MonoBehaviour
 
     private void LoadData()
     {
-        string language = "pt-br";
-        if (language == "en-us")
-        {
-            TextAsset textFile = Resources.Load("official_wordle_all") as TextAsset;
-            validWords = textFile.text.Split('\n');
-
-            textFile = Resources.Load("official_wordle_common") as TextAsset;
-            solutions = textFile.text.Split('\n');
-        } 
-        else
+        if (Menu.language == "Portuguese Button")
         {
             TextAsset textFile = Resources.Load("wordle_portuguese") as TextAsset;
             validWords = textFile.text.Split('\n');
 
             textFile = Resources.Load("wordle_portuguese") as TextAsset;
+            solutions = textFile.text.Split('\n');
+        } 
+        else
+        {
+            TextAsset textFile = Resources.Load("official_wordle_all") as TextAsset;
+            validWords = textFile.text.Split('\n');
+
+            textFile = Resources.Load("official_wordle_common") as TextAsset;
             solutions = textFile.text.Split('\n');
         }
     }
