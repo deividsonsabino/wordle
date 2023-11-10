@@ -8,7 +8,6 @@ using UnityEngine.UI;
 
 public class Board : MonoBehaviour
 {
-    private GameManager gameManager;
 
     private static readonly KeyCode[] SUPPORTED_KEYS = new KeyCode[] {
         KeyCode.A, KeyCode.B, KeyCode.C, KeyCode.D, KeyCode.E, KeyCode.F,
@@ -39,6 +38,9 @@ public class Board : MonoBehaviour
     public Button newWordButton;
     public Button tryAgainButton;
 
+    [Header("Colors")]
+    public Color32 outlinedColorDefault;
+
     private void Awake()
     {
         rows = GetComponentsInChildren<Row>();
@@ -46,7 +48,6 @@ public class Board : MonoBehaviour
 
     private void Start()
     {
-        gameManager = GetComponent<GameManager>();
         LoadData();
         NewGame();
     }
@@ -85,17 +86,6 @@ public class Board : MonoBehaviour
         }
     }
 
-    public void Exit()
-    {
-        #if UNITY_EDITOR
-            // Application.Quit() does not work in the editor so
-            // UnityEditor.EditorApplication.isPlaying need to be set to false to end the game
-            UnityEditor.EditorApplication.isPlaying = false;
-        #else
-            Application.Quit();
-        #endif
-    }
-
     private void SetRandomWord()
     {
         word = solutions[UnityEngine.Random.Range(0, solutions.Length)];
@@ -108,12 +98,17 @@ public class Board : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Backspace))
         {
-            columnIndex = Mathf.Max(columnIndex - 1, 0);
+            for (int i = 0; i < currentRow.tiles.Length; i++)
+            {
+                currentRow.tiles[i].GetComponent<Outline>().effectColor = outlinedColorDefault;
+            }
 
+            columnIndex = Mathf.Max(columnIndex - 1, 0);
             currentRow.tiles[columnIndex].SetLetter('\0');
             currentRow.tiles[columnIndex].SetState(emptyState);
 
             invalidWordText.gameObject.SetActive(false);
+
         }
         else if (columnIndex >= currentRow.tiles.Length)
         {
@@ -124,6 +119,8 @@ public class Board : MonoBehaviour
         }
         else
         {
+            currentRow.tiles[columnIndex].GetComponent<Outline>().effectColor = Color.white;
+
             for (int i = 0; i < SUPPORTED_KEYS.Length; i++)
             {
                 if (Input.GetKeyDown(SUPPORTED_KEYS[i]))

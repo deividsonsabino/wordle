@@ -749,6 +749,9 @@ MonoBehaviour:
   invalidWordText: {fileID: 205058879}
   newWordButton: {fileID: 1168298921}
   tryAgainButton: {fileID: 123951562}
+  outlinedColorDefault:
+    serializedVersion: 2
+    rgba: 4282134833
 --- !u!114 &525140311
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -761,7 +764,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f59747b98c662f4985299a1a2165419, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  language: 
 --- !u!1 &528033816
 GameObject:
   m_ObjectHideFlags: 0
@@ -914,8 +916,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 525140310}
-        m_TargetAssemblyTypeName: Board, Assembly-CSharp
+      - m_Target: {fileID: 525140311}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
         m_MethodName: Exit
         m_Mode: 1
         m_Arguments:
@@ -2516,6 +2518,18 @@ PrefabInstance:
     - target: {fileID: 5625732183937336318, guid: 39f024fa8ad9d7a479dd5f5fc755598e, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5661743793447392573, guid: 39f024fa8ad9d7a479dd5f5fc755598e, type: 3}
+      propertyPath: m_EffectColor.b
+      value: 0.27058825
+      objectReference: {fileID: 0}
+    - target: {fileID: 5661743793447392573, guid: 39f024fa8ad9d7a479dd5f5fc755598e, type: 3}
+      propertyPath: m_EffectColor.g
+      value: 0.27058825
+      objectReference: {fileID: 0}
+    - target: {fileID: 5661743793447392573, guid: 39f024fa8ad9d7a479dd5f5fc755598e, type: 3}
+      propertyPath: m_EffectColor.r
+      value: 0.27058825
       objectReference: {fileID: 0}
     - target: {fileID: 7268123166068389116, guid: 39f024fa8ad9d7a479dd5f5fc755598e, type: 3}
       propertyPath: m_Name
