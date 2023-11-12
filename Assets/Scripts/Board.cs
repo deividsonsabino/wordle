@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
@@ -7,6 +8,7 @@ using UnityEngine.UI;
 
 public class Board : MonoBehaviour
 {
+
     private static readonly KeyCode[] SUPPORTED_KEYS = new KeyCode[] {
         KeyCode.A, KeyCode.B, KeyCode.C, KeyCode.D, KeyCode.E, KeyCode.F,
         KeyCode.G, KeyCode.H, KeyCode.I, KeyCode.J, KeyCode.K, KeyCode.L,
@@ -36,6 +38,9 @@ public class Board : MonoBehaviour
     public Button newWordButton;
     public Button tryAgainButton;
 
+    [Header("Colors")]
+    public Color32 outlinedColorDefault;
+
     private void Awake()
     {
         rows = GetComponentsInChildren<Row>();
@@ -63,27 +68,40 @@ public class Board : MonoBehaviour
 
     private void LoadData()
     {
-        TextAsset textFile = Resources.Load("official_wordle_all") as TextAsset;
-        validWords = textFile.text.Split('\n');
+        if (Menu.language == "Portuguese Button")
+        {
+            TextAsset textFile = Resources.Load("wordle_portuguese") as TextAsset;
+            validWords = textFile.text.Split('\n');
+            validWords = RemoveCharacters(validWords, "\r");
 
-        textFile = Resources.Load("official_wordle_common") as TextAsset;
-        solutions = textFile.text.Split('\n');
+
+            textFile = Resources.Load("wordle_portuguese") as TextAsset;
+            solutions = textFile.text.Split('\n');
+            validWords = RemoveCharacters(validWords, "\r");
+        }
+        else
+        {
+            TextAsset textFile = Resources.Load("official_wordle_all") as TextAsset;
+            validWords = textFile.text.Split('\n');
+
+            textFile = Resources.Load("official_wordle_common") as TextAsset;
+            solutions = textFile.text.Split('\n');
+        }
     }
 
-    public void Exit()
+    private string[] RemoveCharacters(string[] wordList, string characterToRemove)
     {
-        #if UNITY_EDITOR
-            // Application.Quit() does not work in the editor so
-            // UnityEditor.EditorApplication.isPlaying need to be set to false to end the game
-            UnityEditor.EditorApplication.isPlaying = false;
-        #else
-            Application.Quit();
-        #endif
+        for (int i = 0; i < wordList.Length; i++)
+        {
+            wordList[i] = wordList[i].Replace(characterToRemove, string.Empty);
+        }
+
+        return wordList;
     }
 
     private void SetRandomWord()
     {
-        word = solutions[Random.Range(0, solutions.Length)];
+        word = solutions[UnityEngine.Random.Range(0, solutions.Length)];
         word = word.ToLower().Trim();
     }
 
@@ -93,12 +111,17 @@ public class Board : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Backspace))
         {
-            columnIndex = Mathf.Max(columnIndex - 1, 0);
+            for (int i = 0; i < currentRow.tiles.Length; i++)
+            {
+                currentRow.tiles[i].GetComponent<Outline>().effectColor = outlinedColorDefault;
+            }
 
+            columnIndex = Mathf.Max(columnIndex - 1, 0);
             currentRow.tiles[columnIndex].SetLetter('\0');
             currentRow.tiles[columnIndex].SetState(emptyState);
 
             invalidWordText.gameObject.SetActive(false);
+
         }
         else if (columnIndex >= currentRow.tiles.Length)
         {
@@ -109,6 +132,8 @@ public class Board : MonoBehaviour
         }
         else
         {
+            currentRow.tiles[columnIndex].GetComponent<Outline>().effectColor = Color.white;
+
             for (int i = 0; i < SUPPORTED_KEYS.Length; i++)
             {
                 if (Input.GetKeyDown(SUPPORTED_KEYS[i]))
