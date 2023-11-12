@@ -72,10 +72,13 @@ public class Board : MonoBehaviour
         {
             TextAsset textFile = Resources.Load("wordle_portuguese") as TextAsset;
             validWords = textFile.text.Split('\n');
+            validWords = RemoveCharacters(validWords, "\r");
+
 
             textFile = Resources.Load("wordle_portuguese") as TextAsset;
             solutions = textFile.text.Split('\n');
-        } 
+            validWords = RemoveCharacters(validWords, "\r");
+        }
         else
         {
             TextAsset textFile = Resources.Load("official_wordle_all") as TextAsset;
@@ -84,6 +87,16 @@ public class Board : MonoBehaviour
             textFile = Resources.Load("official_wordle_common") as TextAsset;
             solutions = textFile.text.Split('\n');
         }
+    }
+
+    private string[] RemoveCharacters(string[] wordList, string characterToRemove)
+    {
+        for (int i = 0; i < wordList.Length; i++)
+        {
+            wordList[i] = wordList[i].Replace(characterToRemove, string.Empty);
+        }
+
+        return wordList;
     }
 
     private void SetRandomWord()

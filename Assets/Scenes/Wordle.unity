@@ -751,7 +751,7 @@ MonoBehaviour:
   tryAgainButton: {fileID: 123951562}
   outlinedColorDefault:
     serializedVersion: 2
-    rgba: 4282134833
+    rgba: 4282729797
 --- !u!114 &525140311
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2518,18 +2518,6 @@ PrefabInstance:
     - target: {fileID: 5625732183937336318, guid: 39f024fa8ad9d7a479dd5f5fc755598e, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5661743793447392573, guid: 39f024fa8ad9d7a479dd5f5fc755598e, type: 3}
-      propertyPath: m_EffectColor.b
-      value: 0.27058825
-      objectReference: {fileID: 0}
-    - target: {fileID: 5661743793447392573, guid: 39f024fa8ad9d7a479dd5f5fc755598e, type: 3}
-      propertyPath: m_EffectColor.g
-      value: 0.27058825
-      objectReference: {fileID: 0}
-    - target: {fileID: 5661743793447392573, guid: 39f024fa8ad9d7a479dd5f5fc755598e, type: 3}
-      propertyPath: m_EffectColor.r
-      value: 0.27058825
       objectReference: {fileID: 0}
     - target: {fileID: 7268123166068389116, guid: 39f024fa8ad9d7a479dd5f5fc755598e, type: 3}
       propertyPath: m_Name
