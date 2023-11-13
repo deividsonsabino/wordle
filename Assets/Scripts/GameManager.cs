@@ -14,6 +14,11 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene("Wordle");
     }
 
+    public void Menu()
+    {
+        SceneManager.LoadScene("Start");
+    }
+
     public void Exit()
     {
         #if UNITY_EDITOR
