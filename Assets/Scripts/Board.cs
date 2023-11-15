@@ -37,6 +37,8 @@ public class Board : MonoBehaviour
     public TextMeshProUGUI invalidWordText;
     public Button newWordButton;
     public Button tryAgainButton;
+    public GameObject panel;
+
 
     [Header("Colors")]
     public Color32 outlinedColorDefault;
@@ -54,6 +56,7 @@ public class Board : MonoBehaviour
 
     public void NewGame()
     {
+        panel.gameObject.SetActive(false);
         ClearBoard();
         SetRandomWord();
 
@@ -64,6 +67,7 @@ public class Board : MonoBehaviour
     {
         ClearBoard();
         enabled = true;
+
     }
 
     private void LoadData()
@@ -247,6 +251,8 @@ public class Board : MonoBehaviour
                 return false;
             }
         }
+        
+        panel.gameObject.SetActive(true);
 
         return true;
     }
