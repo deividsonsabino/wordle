@@ -43,6 +43,13 @@ public class Board : MonoBehaviour
     [Header("Colors")]
     public Color32 outlinedColorDefault;
 
+    [Header("Sounds")]
+    public AudioClip sound;
+    public AudioClip newLetter;
+    public AudioClip errorSound;
+
+    public AudioSource audioSource;
+
     private void Awake()
     {
         rows = GetComponentsInChildren<Row>();
@@ -68,6 +75,10 @@ public class Board : MonoBehaviour
         ClearBoard();
         enabled = true;
 
+    }
+
+    public void ButtonSoundEffect() {
+        audioSource.PlayOneShot(sound);
     }
 
     private void LoadData()
@@ -115,6 +126,7 @@ public class Board : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Backspace))
         {
+            audioSource.PlayOneShot(errorSound);
             for (int i = 0; i < currentRow.tiles.Length; i++)
             {
                 currentRow.tiles[i].GetComponent<Outline>().effectColor = outlinedColorDefault;
@@ -142,6 +154,7 @@ public class Board : MonoBehaviour
             {
                 if (Input.GetKeyDown(SUPPORTED_KEYS[i]))
                 {
+                    audioSource.PlayOneShot(newLetter);
                     currentRow.tiles[columnIndex].SetLetter((char)SUPPORTED_KEYS[i]);
                     currentRow.tiles[columnIndex].SetState(occupiedState);
                     columnIndex++;
@@ -155,6 +168,7 @@ public class Board : MonoBehaviour
     {
         if (!IsValidWord(row.word))
         {
+            audioSource.PlayOneShot(errorSound);
             invalidWordText.gameObject.SetActive(true);
             return;
         }
@@ -167,6 +181,8 @@ public class Board : MonoBehaviour
 
             if (tile.letter == word[i])
             {
+                audioSource.PlayOneShot(sound);
+
                 tile.SetState(correctState);
 
                 remaining = remaining.Remove(i, 1);
@@ -231,6 +247,7 @@ public class Board : MonoBehaviour
 
     private bool IsValidWord(string word)
     {
+        audioSource.PlayOneShot(errorSound);
         for (int i = 0; i < validWords.Length; i++)
         {
             if (validWords[i] == word)
@@ -269,4 +286,5 @@ public class Board : MonoBehaviour
         tryAgainButton.gameObject.SetActive(true);
         newWordButton.gameObject.SetActive(true);
     }
+
 }
