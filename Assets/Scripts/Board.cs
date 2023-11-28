@@ -25,6 +25,9 @@ public class Board : MonoBehaviour
 
     private int rowIndex;
     private int columnIndex;
+    public int attemp;
+
+    private int score;
 
     [Header("State")]
     public Tile.State emptyState;
@@ -38,6 +41,8 @@ public class Board : MonoBehaviour
     public Button newWordButton;
     public Button tryAgainButton;
     public GameObject panel;
+    public TextMeshProUGUI attempsText;
+    public TextMeshProUGUI scoreText;
 
 
     [Header("Colors")]
@@ -52,6 +57,10 @@ public class Board : MonoBehaviour
 
     private void Awake()
     {
+        attemp = 6;
+        score = 0;
+        scoreText.SetText(score.ToString());
+        attempsText.SetText(attemp.ToString());
         rows = GetComponentsInChildren<Row>();
     }
 
@@ -77,7 +86,8 @@ public class Board : MonoBehaviour
 
     }
 
-    public void ButtonSoundEffect() {
+    public void ButtonSoundEffect()
+    {
         audioSource.PlayOneShot(sound);
     }
 
@@ -172,6 +182,8 @@ public class Board : MonoBehaviour
             invalidWordText.gameObject.SetActive(true);
             return;
         }
+        attemp--;
+        attempsText.SetText(attemp.ToString());
 
         string remaining = word;
 
@@ -207,9 +219,13 @@ public class Board : MonoBehaviour
                     int index = remaining.IndexOf(tile.letter);
                     remaining = remaining.Remove(index, 1);
                     remaining = remaining.Insert(index, "");
+                    score += 100;
+                    scoreText.SetText(score.ToString());
                 }
                 else
                 {
+                    score += 100;
+                    scoreText.SetText(score.ToString());
                     tile.SetState(incorrectState);
                 }
             }
@@ -268,7 +284,7 @@ public class Board : MonoBehaviour
                 return false;
             }
         }
-        
+
         panel.gameObject.SetActive(true);
 
         return true;
